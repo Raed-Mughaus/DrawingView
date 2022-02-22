@@ -21,19 +21,9 @@ class RasmContext(
     internal var isBrushToolActive = false
     val drawing get() = brushToolBitmaps.layerBitmap
     val state = DrawingState()
-    val transformation = createIdentityMatrix()
+    val transformation = Matrix()
     var brushConfig = BrushesRepository().get(Brush.Pen)
     var brushColor = 0xff2187bb.toInt()
     var backgroundColor = -1
 
-}
-
-private fun createIdentityMatrix(): Matrix {
-    return Matrix().apply {
-        setValues(floatArrayOf(
-            1f, 0f, 0f,
-            0f, 1f, 0f,
-            0f, 0f, 1f,
-        ))
-    }
 }
