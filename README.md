@@ -8,7 +8,7 @@ WARNING 2: Some breaking changes might be introduced in the coming days.
 ## Demo
 [https://www.youtube.com/watch?v=8qYhwjleT_8](https://www.youtube.com/watch?v=8qYhwjleT_8)
 
-![Screenshot](https://github.com/Raed-Mughaus/RasmView/blob/master/sample_screenshot.jpg)
+![Screenshot](https://raw.githubusercontent.com/Raed-Mughaus/RasmView/main/sample_screenshot.jpg)
 
 ## Features
 * 8 already defined brushes, and you can define your own.
