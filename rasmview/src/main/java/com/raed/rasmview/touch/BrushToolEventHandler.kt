@@ -1,9 +1,14 @@
 package com.raed.rasmview.touch
 
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.view.MotionEvent
-import com.raed.brushtool.BrushToolFactory
-import com.raed.brushtool.model.TouchEvent
+import com.raed.rasmview.brushtool.BrushToolFactory
+import com.raed.rasmview.brushtool.model.TouchEvent
 import com.raed.rasmview.RasmContext
+import com.raed.rasmview.actions.DrawBitmapAction
+import kotlin.math.max
+import kotlin.math.min
 
 class BrushToolEventHandler(
     private val rasmContext: RasmContext,
@@ -65,14 +70,37 @@ class BrushToolEventHandler(
 
     private fun startDrawing(event: TouchEvent) {
         rasmContext.isBrushToolActive = true
-        rasmContext.brushToolBitmaps.strokeBitmap.eraseColor(0)
         rasmContext.brushToolBitmaps.resultBitmap.eraseColor(0)
+        rasmContext.brushToolBitmaps.strokeBitmap.eraseColor(0)
+        if (rasmContext.brushConfig.isEraser) {
+            Canvas(rasmContext.brushToolBitmaps.strokeBitmap)
+                .drawBitmap(
+                    rasmContext.brushToolBitmaps.layerBitmap,
+                    0f, 0f, null,
+                )
+        }
         brushTool.startDrawing(event)
     }
 
     private fun endDrawing(event: TouchEvent) {
         brushTool.endDrawing(event)
         rasmContext.isBrushToolActive = false
+
+        val strokeBoundary = Rect(brushTool.strokeBoundary)
+        val resultBitmap = rasmContext.brushToolBitmaps.resultBitmap
+        strokeBoundary.left = max(strokeBoundary.left, 0)
+        strokeBoundary.top = max(strokeBoundary.top, 0)
+        strokeBoundary.right = min(strokeBoundary.right, resultBitmap.width)
+        strokeBoundary.bottom = min(strokeBoundary.bottom, resultBitmap.height)
+        if (strokeBoundary.width() != 0 && strokeBoundary.height() != 0) {
+            rasmContext.state.update(
+                DrawBitmapAction(
+                    resultBitmap,
+                    strokeBoundary,
+                    strokeBoundary,
+                ),
+            )
+        }
     }
 
     override fun cancel() {

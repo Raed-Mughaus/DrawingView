@@ -12,7 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "DrawingView"
-include ':app'
+rootProject.name = "RasmView"
+include ':sample'
 include ':rasmview'
-include ':brushtool'

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <View
+        android:layout_width="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="48dp"
+        android:background="#2196F3" />
+
+    <View
+        android:layout_width="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="48dp"
+        android:background="#FFC107" />
+
+    <View
+        android:layout_width="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="48dp"
+        android:background="#435772" />
+
+    <View
+        android:layout_width="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="48dp"
+        android:background="#ffffff" />
+
+    <View
+        android:layout_width="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="48dp"
+        android:background="#ab278c" />
+
+</LinearLayout>

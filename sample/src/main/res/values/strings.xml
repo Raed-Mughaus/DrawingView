@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">RasmView</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="clear">Clear</string>
+    <string name="background_color">Background color</string>
+    <string name="brush_color">Brush color</string>
+    <string name="resetTransformation">Reset transformation</string>
+    <string name="zoomOut">Zoom out</string>
+    <string name="size">Size</string>
+    <string name="flow">Flow</string>
+    <string name="opacity">Opacity</string>
+</resources>

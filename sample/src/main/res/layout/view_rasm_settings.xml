@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:gravity="center">
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/brush_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/size"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/brushSizeSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="99"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/flow"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/brushFlowSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="99"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/opacity"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/brushOpacitySeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="99"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="12dp"
+        android:background="?colorOnSurface"
+        android:alpha="0.5"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brush_color"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        />
+
+    <include
+        android:id="@+id/brushColorViews"
+        layout="@layout/colors"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="12dp"
+        android:background="?colorOnSurface"
+        android:alpha="0.5"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/background_color"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        />
+
+    <include
+        android:id="@+id/backgroundColorViews"
+        layout="@layout/colors"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="12dp"
+        android:background="?colorOnSurface"
+        android:alpha="0.5"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/undoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="@string/undo"
+            android:enabled="false"
+            />
+
+        <Button
+            android:id="@+id/redoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="@string/redo"
+            android:enabled="false"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="@string/clear"
+            />
+
+        <Button
+            android:id="@+id/zoomOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="@string/zoomOut"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
