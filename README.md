@@ -2,6 +2,7 @@
 RasmView is an Android drawing library; it provides a view that allows users to draw on top of a bitmap.
 
 WARNING 1: The library is new and needs testing. If you found a bug, please open an issue.
+
 WARNING 2: Some breaking changes might be introduced in the coming days.
 
 ## Demo
@@ -24,7 +25,6 @@ dependencies {
 ```
 #### Maven:
 ```xml
-implementation '::'
 <dependency>
   <groupId>com.raedapps</groupId>
   <artifactId>rasmview</artifactId>
@@ -92,7 +92,7 @@ val rasmContext = RasmContext()
 rasmContext.init(imageBitmap)
 rasmView.rasmContext = rasmContext
 ```
-#### Get the drawing
+#### Getting the drawing
 ```kotlin
 val drawingBitmap = rasmView.rasmContext.rasmBitmap
 ```
@@ -116,15 +116,15 @@ rasmState.addOnStateChangedListener {
 undoButton.isEnabled = rasmState.canCallUndo()
 redoButton.isEnabled = rasmState.canCallRedo()
 ```
-#### Clear the drawing
+#### Clearing the drawing
 ```kotlin
 rasmContext.clear()
 ```
-#### Enable rotation
+#### Enabling rotation
 ```kotlin
 rasmContext.rotationEnabled = true
 ```
-#### Reset the transformation
+#### Resetting the transformation
 ```kotlin
 rasmView.resetTransformation()
 ```
