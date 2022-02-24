@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.raed.rasmview.RasmView
 import com.raed.rasmview.brushtool.data.Brush
 import com.raed.rasmview.brushtool.data.BrushesRepository
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sizeSeekBar: SeekBar
     private lateinit var flowSeekBar: SeekBar
     private lateinit var opacitySeekBar: SeekBar
+    private lateinit var rotationSwitch: SwitchMaterial
 
     private val rasmContext get() = rasmView.rasmContext
 
@@ -60,9 +62,9 @@ class MainActivity : AppCompatActivity() {
             rasmView.rasmContext.clear()
         }
 
-        val zoomOutButton = findViewById<Button>(R.id.zoomOutButton)
-        zoomOutButton.setOnClickListener {
-            Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show()
+        val resetTransformationButton = findViewById<Button>(R.id.resetTransformation)
+        resetTransformationButton.setOnClickListener {
+            rasmView.resetTransformation()
         }
 
         rasmView.rasmContext
@@ -108,6 +110,12 @@ class MainActivity : AppCompatActivity() {
                 .brushConfig
                 .opacity = (v + 1) / 100f
         })
+
+        rotationSwitch = findViewById(R.id.rotationSwitch)
+        rotationSwitch.setOnCheckedChangeListener { _, checked ->
+            rasmContext.rotationEnabled = checked
+            updateUI()
+        }
         updateUI()
     }
 
@@ -122,11 +130,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getScreenSize(): Pair<Int, Int> {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Toast.makeText(this, ">= R", Toast.LENGTH_SHORT).show()
             val bounds = windowManager.currentWindowMetrics.bounds
             Pair(bounds.width(), bounds.height())
         } else {
-            Toast.makeText(this, "< R", Toast.LENGTH_SHORT).show()
             val point = Point()
             windowManager.defaultDisplay.getRealSize(point)
             Pair(point.x, point.y)
@@ -138,6 +144,7 @@ class MainActivity : AppCompatActivity() {
         sizeSeekBar.progress = (99 * brushConfig.size).roundToInt()
         flowSeekBar.progress = (99 * brushConfig.flow).roundToInt()
         opacitySeekBar.progress = (99 * brushConfig.opacity).roundToInt()
+        rotationSwitch.isChecked = rasmContext.rotationEnabled
     }
 
 }

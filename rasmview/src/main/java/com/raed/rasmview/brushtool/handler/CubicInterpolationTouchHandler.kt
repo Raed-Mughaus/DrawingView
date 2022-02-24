@@ -4,7 +4,7 @@ import com.raed.rasmview.brushtool.model.TouchEvent
 import kotlin.math.ceil
 
 internal class CubicInterpolationTouchHandler(
-    private val mStep: Float,
+    private val step: Float,
     private val nextHandler: TouchHandler,
 ): TouchHandler {
 
@@ -15,16 +15,16 @@ internal class CubicInterpolationTouchHandler(
     private val interpolatedEvent = TouchEvent()
 
     override fun handleFirstTouch(event: TouchEvent) {
-        event1.set(event)
         event0.set(event)
-        nextHandler.handleFirstTouch(event1)
+        event1.set(event)
+        nextHandler.handleFirstTouch(event)
     }
 
     override fun handleTouch(event: TouchEvent) {
         event2.x = (event1.x + event.x) / 2f
         event2.y = (event1.y + event.y) / 2f
         event2.p = (event1.p + event.p) / 2f
-        val pointCount = ceil(event0.distanceTo(event2) / mStep).toInt()
+        val pointCount = 5 * ceil(event0.distanceTo(event2) / step).toInt()
         for (n in 1 until pointCount) {
             val t = n.toFloat() / pointCount.toFloat()
             val tSqr = t * t
@@ -41,7 +41,7 @@ internal class CubicInterpolationTouchHandler(
     }
 
     override fun handleLastTouch(event: TouchEvent) {
-        val pointCount = ceil(event0.distanceTo(event) / mStep).toInt()
+        val pointCount = ceil(event0.distanceTo(event) / step).toInt()
         for (n in 1 until pointCount) {
             val t = n.toFloat() / pointCount.toFloat()
             val tSqr = t * t

@@ -17,10 +17,13 @@ class BrushTool internal constructor(
     private var touchHandler = createTouchHandler()
     val strokeBoundary = Rect()
 
+    private val lastEvent = TouchEvent()
+
     fun startDrawing(event: TouchEvent) {
         strokeBoundary.setEmpty()
         touchHandler.handleFirstTouch(event)
         resultBitmapUpdater.update()
+        lastEvent.set(event)
     }
 
     fun continueDrawing(event: TouchEvent) {
@@ -28,6 +31,7 @@ class BrushTool internal constructor(
         touchHandler.handleTouch(event)
         boundaryRect.inset(-5, -5)
         resultBitmapUpdater.update(boundaryRect)
+        lastEvent.set(event)
     }
 
     fun endDrawing(event: TouchEvent) {
@@ -36,16 +40,20 @@ class BrushTool internal constructor(
     }
 
     fun cancel() {
-        TODO()
+        touchHandler.handleLastTouch(lastEvent)
     }
 
     private fun createTouchHandler(): TouchHandler {
+        /*return LinearInterpolationTouchHandler(
+            step,
+            createRenderingTouchHandler(),
+        )*/
         return CubicInterpolationTouchHandler(
-            step,//TODO
+            step,
             LinearInterpolationTouchHandler(
-                step, //TODO,
+                step,
                 createRenderingTouchHandler(),
-            )
+            ),
         )
     }
 

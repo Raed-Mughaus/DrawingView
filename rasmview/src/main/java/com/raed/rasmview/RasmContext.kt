@@ -3,6 +3,8 @@ package com.raed.rasmview
 import android.graphics.Bitmap
 import android.graphics.Bitmap.Config.ARGB_8888
 import android.graphics.Matrix
+import android.graphics.Rect
+import android.graphics.RectF
 import com.raed.rasmview.actions.ChangeBackgroundAction
 import com.raed.rasmview.actions.ClearAction
 import com.raed.rasmview.brushtool.BrushToolBitmaps
@@ -25,6 +27,7 @@ class RasmContext {
     val transformation = Matrix()
     var brushConfig = BrushConfig()
     var brushColor = 0xff2187bb.toInt()
+    var rotationEnabled = false
     internal var backgroundColor = -1
 
     fun init(
@@ -48,8 +51,12 @@ class RasmContext {
         )
     }
 
-    fun resetZoom() {
-        TODO()
+    fun resetZoom(containerWidth: Int, containerHeight: Int) {
+        transformation.setRectToRect(
+            RectF(0F, 0F, rasmBitmap.width.toFloat(), rasmBitmap.height.toFloat()),
+            RectF(0f, 0f, containerWidth.toFloat(), containerHeight.toFloat()),
+            Matrix.ScaleToFit.CENTER,
+        )
     }
 
 }

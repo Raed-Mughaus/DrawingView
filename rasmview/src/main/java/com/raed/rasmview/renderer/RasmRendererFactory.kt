@@ -1,5 +1,6 @@
 package com.raed.rasmview.renderer
 
+import android.graphics.Rect
 import com.raed.rasmview.RasmContext
 
 internal class RasmRendererFactory {
@@ -13,10 +14,13 @@ internal class RasmRendererFactory {
     }
 
     private fun createBrushToolResultRenderer(rasmContext: RasmContext): Renderer {
+        val rasmWidth = rasmContext.rasmBitmap.width
+        val rasmHeight = rasmContext.rasmBitmap.height
         return TransformedRenderer(
             rasmContext.transformation,
             ListRenderer(
-                ColorRender(
+                RectRenderer(
+                    Rect(0, 0, rasmWidth, rasmHeight),
                     rasmContext.backgroundColor,
                 ),
                 BitmapRenderer(
@@ -27,10 +31,13 @@ internal class RasmRendererFactory {
     }
 
     private fun createLayerRenderer(rasmContext: RasmContext): Renderer {
+        val rasmWidth = rasmContext.rasmBitmap.width
+        val rasmHeight = rasmContext.rasmBitmap.height
         return TransformedRenderer(
             rasmContext.transformation,
             ListRenderer(
-                ColorRender(
+                RectRenderer(
+                    Rect(0, 0, rasmWidth, rasmHeight),
                     rasmContext.backgroundColor,
                 ),
                 BitmapRenderer(

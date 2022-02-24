@@ -31,7 +31,7 @@ internal class LinearInterpolationTouchHandler(
         val dX = event.x - lastTouchEvent.x
         val dY = event.y - lastTouchEvent.y
         val dP = event.p - lastTouchEvent.p
-        val dist = sqrt(dX * dX + dY * dY)
+        val dist = event.distanceTo(lastTouchEvent)
         if (dist < step) {
             return false
         }

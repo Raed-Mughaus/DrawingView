@@ -39,6 +39,7 @@ class BrushesRepository(
             OvalStamp,
             1f,
             0.0f,
+            rotation = 45,
         )
     }
 

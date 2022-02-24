@@ -1,4 +1,4 @@
-package com.raed.rasmview.touch
+package com.raed.rasmview.touch.handler
 
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -19,18 +19,19 @@ class BrushToolEventHandler(
     private val touchEvent = TouchEvent()
     private var pointerId = 0
     private var ignoreEvents = false
-    
+    private var firstEventTime = 0L
+
     override fun handleFirstTouch(event: MotionEvent) {
+        firstEventTime = System.currentTimeMillis()
+        if (event.pointerCount > 1) {
+            ignoreEvents = true
+            return
+        }
         val pointerIdx = 0
         pointerId = event.getPointerId(pointerIdx)
 
-        touchEvent.set(event, pointerIdx, 0)
+        touchEvent.set(event, pointerIdx)
         startDrawing(touchEvent)
-
-        for (historyPosition in 1..event.historySize) {
-            touchEvent.set(event, pointerIdx, historyPosition)
-            brushTool.continueDrawing(touchEvent)
-        }
     }
 
     override fun handleTouch(event: MotionEvent) {
@@ -38,16 +39,10 @@ class BrushToolEventHandler(
             return
         }
         val pointerIdx = event.findPointerIndex(pointerId)
-
-        for (i in 0 until event.historySize) {
-            touchEvent.set(event, pointerIdx, i)
-            brushTool.continueDrawing(touchEvent)
-        }
-
-        touchEvent.set(event, pointerIdx, event.historySize)
-        if (event.isActionUp(pointerIdx)) {
+        touchEvent.set(event, pointerIdx)
+        if (event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             ignoreEvents = true
-            endDrawing(touchEvent)
+            cancelDrawing()
         } else {
             brushTool.continueDrawing(touchEvent)
         }
@@ -58,14 +53,14 @@ class BrushToolEventHandler(
             return
         }
         val pointerIdx = event.findPointerIndex(pointerId)
-
-        for (i in 0 until event.historySize) {
-            touchEvent.set(event, pointerIdx, i)
-            brushTool.continueDrawing(touchEvent)
-        }
-
-        touchEvent.set(event, pointerIdx, event.historySize)
+        touchEvent.set(event, pointerIdx)
         endDrawing(touchEvent)
+    }
+
+    override fun cancel() {
+        if (!ignoreEvents) {
+            cancelDrawing()
+        }
     }
 
     private fun startDrawing(event: TouchEvent) {
@@ -85,14 +80,25 @@ class BrushToolEventHandler(
     private fun endDrawing(event: TouchEvent) {
         brushTool.endDrawing(event)
         rasmContext.isBrushToolActive = false
+        updateRasmState()
+    }
 
+    private fun cancelDrawing() {
+        brushTool.cancel()
+        rasmContext.isBrushToolActive = false
+        if (System.currentTimeMillis() - firstEventTime > 500) {
+            updateRasmState()
+        }
+    }
+
+    private fun updateRasmState() {
         val strokeBoundary = Rect(brushTool.strokeBoundary)
         val resultBitmap = rasmContext.brushToolBitmaps.resultBitmap
         strokeBoundary.left = max(strokeBoundary.left, 0)
         strokeBoundary.top = max(strokeBoundary.top, 0)
         strokeBoundary.right = min(strokeBoundary.right, resultBitmap.width)
         strokeBoundary.bottom = min(strokeBoundary.bottom, resultBitmap.height)
-        if (strokeBoundary.width() != 0 && strokeBoundary.height() != 0) {
+        if (strokeBoundary.width() > 0 && strokeBoundary.height() > 0) {
             rasmContext.state.update(
                 DrawBitmapAction(
                     resultBitmap,
@@ -103,27 +109,9 @@ class BrushToolEventHandler(
         }
     }
 
-    override fun cancel() {
-        if (!ignoreEvents) {
-            brushTool.cancel()
-        }
-    }
-
 }
 
-private fun TouchEvent.set(event: MotionEvent, pointerIdx: Int, historyPosition: Int) {
-    require(historyPosition <= event.historySize)
-    if (historyPosition == event.historySize) {
-        x = event.getX(pointerIdx)
-        y = event.getY(pointerIdx)
-    } else {
-        x = event.getHistoricalX(pointerIdx, historyPosition)
-        y = event.getHistoricalY(pointerIdx, historyPosition)
-    }
-}
-
-
-private fun MotionEvent.isActionUp(pointerIdx: Int): Boolean {
-    return actionMasked == MotionEvent.ACTION_UP ||
-            (actionMasked == MotionEvent.ACTION_POINTER_UP && pointerIdx == actionIndex)
+private fun TouchEvent.set(event: MotionEvent, pointerIdx: Int) {
+    x = event.getX(pointerIdx)
+    y = event.getY(pointerIdx)
 }

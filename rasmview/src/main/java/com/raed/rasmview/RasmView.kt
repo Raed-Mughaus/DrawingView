@@ -10,8 +10,8 @@ import android.widget.Toast
 import com.raed.rasmview.renderer.RasmRendererFactory
 import com.raed.rasmview.renderer.Renderer
 import com.raed.rasmview.state.RasmState
-import com.raed.rasmview.touch.RasmViewEventHandlerFactory
-import com.raed.rasmview.touch.MotionEventHandler
+import com.raed.rasmview.touch.handler.RasmViewEventHandlerFactory
+import com.raed.rasmview.touch.handler.MotionEventHandler
 
 class RasmView(
     context: Context,
@@ -48,6 +48,7 @@ class RasmView(
         }
         rasmContext.init(w, h)
         updateRenderer()
+        resetTransformation()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -78,6 +79,11 @@ class RasmView(
         }
         invalidate()
         return true
+    }
+
+    fun resetTransformation() {
+        rasmContext.resetZoom(width, height)
+        invalidate()
     }
 
     private fun updateRenderer() {

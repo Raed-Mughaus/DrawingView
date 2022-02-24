@@ -110,6 +110,12 @@
         android:alpha="0.5"
         />
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/rotationSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Rotation" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,13 +139,6 @@
             android:enabled="false"
             />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <Button
             android:id="@+id/clearButton"
             android:layout_width="wrap_content"
@@ -148,14 +147,14 @@
             android:text="@string/clear"
             />
 
-        <Button
-            android:id="@+id/zoomOutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:text="@string/zoomOut"
-            />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/resetTransformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:text="@string/resetTransformation"
+        />
 
 </LinearLayout>
