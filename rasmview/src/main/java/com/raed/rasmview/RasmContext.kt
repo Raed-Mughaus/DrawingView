@@ -51,7 +51,7 @@ class RasmContext {
         )
     }
 
-    fun resetZoom(containerWidth: Int, containerHeight: Int) {
+    internal fun resetTransformation(containerWidth: Int, containerHeight: Int) {
         transformation.setRectToRect(
             RectF(0F, 0F, rasmBitmap.width.toFloat(), rasmBitmap.height.toFloat()),
             RectF(0f, 0f, containerWidth.toFloat(), containerHeight.toFloat()),

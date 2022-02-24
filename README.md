@@ -8,6 +8,8 @@ WARNING 2: Some breaking changes might be introduced in the coming days.
 ## Demo
 [https://www.youtube.com/watch?v=8qYhwjleT_8](https://www.youtube.com/watch?v=8qYhwjleT_8)
 
+![Screenshot](https://github.com/Raed-Mughaus/DrawingView/blob/master/sample_screenshot.png)
+
 ## Features
 * 8 already defined brushes, and you can define your own.
 * Drawing on top of images.

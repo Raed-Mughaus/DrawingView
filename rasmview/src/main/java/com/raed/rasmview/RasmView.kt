@@ -82,7 +82,7 @@ class RasmView(
     }
 
     fun resetTransformation() {
-        rasmContext.resetZoom(width, height)
+        rasmContext.resetTransformation(width, height)
         invalidate()
     }
 
