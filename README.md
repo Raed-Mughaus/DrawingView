@@ -107,7 +107,7 @@ undoButton.setOnClickListener {
     rasmState.undo()
 }
 redoButton.setOnClickListener {
-    rasmState.undo()
+    rasmState.redp()
 }
 rasmState.addOnStateChangedListener {
     undoButton.isEnabled = rasmState.canCallUndo()
