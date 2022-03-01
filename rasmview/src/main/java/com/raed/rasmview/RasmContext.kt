@@ -11,6 +11,7 @@ import com.raed.rasmview.brushtool.BrushToolBitmaps
 import com.raed.rasmview.brushtool.model.BrushConfig
 import com.raed.rasmview.state.RasmState
 
+
 class RasmContext {
 
     private var nullableBrushToolBitmaps: BrushToolBitmaps? = null
@@ -22,7 +23,8 @@ class RasmContext {
     internal val brushToolBitmaps get() = nullableBrushToolBitmaps!!
     internal var isBrushToolActive = false
     val isInitialized get() = nullableBrushToolBitmaps != null
-    val rasmBitmap get() = brushToolBitmaps.layerBitmap
+    val rasmWidth get() = brushToolBitmaps.layerBitmap.width
+    val rasmHeight get() = brushToolBitmaps.layerBitmap.height
     val state = RasmState(this)
     val transformation = Matrix()
     var brushConfig = BrushConfig()
@@ -53,7 +55,7 @@ class RasmContext {
 
     internal fun resetTransformation(containerWidth: Int, containerHeight: Int) {
         transformation.setRectToRect(
-            RectF(0F, 0F, rasmBitmap.width.toFloat(), rasmBitmap.height.toFloat()),
+            RectF(0F, 0F, rasmWidth.toFloat(), rasmHeight.toFloat()),
             RectF(0f, 0f, containerWidth.toFloat(), containerHeight.toFloat()),
             Matrix.ScaleToFit.CENTER,
         )

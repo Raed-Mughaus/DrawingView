@@ -17,13 +17,13 @@ internal class DrawBitmapAction(
         get() = srcBitmap.byteCount
 
     override fun perform(context: RasmContext) {
-        Canvas(context.rasmBitmap)
+        Canvas(context.brushToolBitmaps.layerBitmap)
             .drawBitmap(srcBitmap, srcRect, dstRect, SRC_PAINT)
     }
 
     override fun getOppositeAction(context: RasmContext): Action {
         val srcBitmap = Bitmap.createBitmap(
-            context.rasmBitmap,
+            context.brushToolBitmaps.layerBitmap,
             dstRect.left, dstRect.top,
             dstRect.width(), dstRect.height(),
         )

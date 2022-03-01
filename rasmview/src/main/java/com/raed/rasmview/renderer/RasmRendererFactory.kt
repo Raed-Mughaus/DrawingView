@@ -14,13 +14,11 @@ internal class RasmRendererFactory {
     }
 
     private fun createBrushToolResultRenderer(rasmContext: RasmContext): Renderer {
-        val rasmWidth = rasmContext.rasmBitmap.width
-        val rasmHeight = rasmContext.rasmBitmap.height
         return TransformedRenderer(
             rasmContext.transformation,
             ListRenderer(
                 RectRenderer(
-                    Rect(0, 0, rasmWidth, rasmHeight),
+                    Rect(0, 0, rasmContext.rasmWidth, rasmContext.rasmHeight),
                     rasmContext.backgroundColor,
                 ),
                 BitmapRenderer(
@@ -31,17 +29,16 @@ internal class RasmRendererFactory {
     }
 
     private fun createLayerRenderer(rasmContext: RasmContext): Renderer {
-        val rasmWidth = rasmContext.rasmBitmap.width
-        val rasmHeight = rasmContext.rasmBitmap.height
+        val layerBitmap = rasmContext.brushToolBitmaps.layerBitmap
         return TransformedRenderer(
             rasmContext.transformation,
             ListRenderer(
                 RectRenderer(
-                    Rect(0, 0, rasmWidth, rasmHeight),
+                    Rect(0, 0, rasmContext.rasmWidth, rasmContext.rasmHeight),
                     rasmContext.backgroundColor,
                 ),
                 BitmapRenderer(
-                    rasmContext.rasmBitmap,
+                    layerBitmap,
                 ),
             ),
         )
