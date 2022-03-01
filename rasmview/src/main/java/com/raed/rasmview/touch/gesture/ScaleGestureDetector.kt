@@ -1,6 +1,5 @@
 package com.raed.rasmview.touch.gesture
 
-import android.util.Log
 import android.view.MotionEvent
 import kotlin.math.abs
 import kotlin.math.hypot
@@ -21,7 +20,7 @@ import kotlin.math.hypot
  * callback will be executed when the events occur.
  *
  */
-class ScaleGestureDetector(
+internal class ScaleGestureDetector(
     private val listener: (Float) -> Unit,
 ) {
 

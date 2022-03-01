@@ -12,35 +12,40 @@ private val MemoryLimit = Runtime.getRuntime().maxMemory() / 5 //TODO: allow cli
 
 internal class ActionsStacks {
 
-    private val mUndoStack = mutableListOf<Action>()
-    private val mRedoStack = mutableListOf<Action>()
+    private val undoStack = mutableListOf<Action>()
+    private val redoStack = mutableListOf<Action>()
 
     fun pushRedo(action: Action) {
-        mRedoStack.push(action)
+        redoStack.push(action)
     }
 
     fun pushUndo(action: Action) {
-        mUndoStack.push(action)
+        undoStack.push(action)
     }
 
     fun clearRedoStack() {
-        mRedoStack.clear()
+        redoStack.clear()
+    }
+
+    fun clear() {
+        undoStack.clear()
+        redoStack.clear()
     }
 
     fun popUndo(): Action {
-        return mUndoStack.pop()
+        return undoStack.pop()
     }
 
     fun popRedo(): Action {
-        return mRedoStack.pop()
+        return redoStack.pop()
     }
 
     fun hasRedo(): Boolean {
-        return mRedoStack.size != 0
+        return redoStack.size != 0
     }
 
     fun hasUndo(): Boolean {
-        return mUndoStack.size != 0
+        return undoStack.size != 0
     }
 
     private fun MutableList<Action>.pop(): Action {
@@ -56,19 +61,19 @@ internal class ActionsStacks {
     }
 
     private fun findCurrentSize(): Long {
-        var size: Long = 0
-        for (entry in mUndoStack) {
+        var size = 0L
+        for (entry in undoStack) {
             size += entry.size
         }
-        for (entry in mRedoStack) {
+        for (entry in redoStack) {
             size += entry.size
         }
         return size
     }
 
     private fun dropAction(): Boolean {
-        if (mUndoStack.size == 0 && mRedoStack.size == 0) return false
-        if (mUndoStack.size >= mRedoStack.size) mUndoStack.removeAt(0) else mRedoStack.removeAt(0)
+        if (undoStack.size == 0 && redoStack.size == 0) return false
+        if (undoStack.size >= redoStack.size) undoStack.removeAt(0) else redoStack.removeAt(0)
         return true
     }
 

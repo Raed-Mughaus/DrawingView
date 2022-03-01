@@ -7,7 +7,7 @@ import com.raed.rasmview.touch.gesture.RotationGestureDetector
 import com.raed.rasmview.touch.gesture.ScaleGestureDetector
 import com.raed.rasmview.touch.gesture.TwoFingersTranslationDetector
 
-class TransformationEventHandler(
+internal class TransformationEventHandler(
     private val transformationMatrix: Matrix,
     enableRotation: Boolean,
 ): MotionEventHandler {

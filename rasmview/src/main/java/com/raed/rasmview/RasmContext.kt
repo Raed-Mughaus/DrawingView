@@ -6,21 +6,20 @@ import com.raed.rasmview.actions.ChangeBackgroundAction
 import com.raed.rasmview.actions.ClearAction
 import com.raed.rasmview.brushtool.BrushToolBitmaps
 import com.raed.rasmview.brushtool.model.BrushConfig
-import com.raed.rasmview.renderer.RasmOnScreenRendererFactory
+import com.raed.rasmview.renderer.RasmRendererFactory
 import com.raed.rasmview.state.RasmState
 
 
-class RasmContext {
+class RasmContext internal constructor() {
 
     private var nullableBrushToolBitmaps: BrushToolBitmaps? = null
         set(value) {
-            require(field == null)
             require(value != null)
             field = value
         }
     internal val brushToolBitmaps get() = nullableBrushToolBitmaps!!
     internal var isBrushToolActive = false
-    val isInitialized get() = nullableBrushToolBitmaps != null
+    val hasRasm get() = nullableBrushToolBitmaps != null
     val rasmWidth get() = brushToolBitmaps.layerBitmap.width
     val rasmHeight get() = brushToolBitmaps.layerBitmap.height
     val state = RasmState(this)
@@ -30,18 +29,19 @@ class RasmContext {
     var rotationEnabled = false
     internal var backgroundColor = -1
 
-    fun init(
+    fun setRasm(
         drawingWidth: Int,
         drawingHeight: Int,
-    ) = init(Bitmap.createBitmap(drawingWidth, drawingHeight, ARGB_8888))
+    ) = setRasm(Bitmap.createBitmap(drawingWidth, drawingHeight, ARGB_8888))
 
-    fun init(drawing: Bitmap) {
-        nullableBrushToolBitmaps = BrushToolBitmaps.createFromDrawing(drawing)
+    fun setRasm(rasm: Bitmap) {
+        state.reset()
+        nullableBrushToolBitmaps = BrushToolBitmaps.createFromDrawing(rasm)
     }
 
     fun exportRasm(): Bitmap {
         val rasm = Bitmap.createBitmap(rasmWidth, rasmHeight, ARGB_8888)
-        val rasmRenderer = RasmOnScreenRendererFactory().createOffscreenRenderer(this)
+        val rasmRenderer = RasmRendererFactory().createOffscreenRenderer(this)
         rasmRenderer.render(Canvas(rasm))
         return rasm
     }

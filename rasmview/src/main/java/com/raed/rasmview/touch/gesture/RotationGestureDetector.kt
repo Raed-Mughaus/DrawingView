@@ -4,7 +4,7 @@ import android.view.MotionEvent
 import kotlin.math.abs
 import kotlin.math.atan
 
-class RotationGestureDetector(
+internal class RotationGestureDetector(
     private val listener: (Float) -> Unit,
 ) {
 

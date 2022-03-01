@@ -10,7 +10,7 @@ import com.raed.rasmview.actions.DrawBitmapAction
 import kotlin.math.max
 import kotlin.math.min
 
-class BrushToolEventHandler(
+internal class BrushToolEventHandler(
     private val rasmContext: RasmContext,
 ): MotionEventHandler {
 

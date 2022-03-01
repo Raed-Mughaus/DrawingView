@@ -27,6 +27,11 @@ class RasmState(
         notifyListeners()
     }
 
+    internal fun reset() {
+        actionsStacks.clear()
+        notifyListeners()
+    }
+
     fun undo() {
         if (!canCallUndo()) {
             throw IllegalStateException("Can't undo. Call rasmState.canCallUndo() before calling this method.")

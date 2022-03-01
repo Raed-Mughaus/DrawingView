@@ -6,8 +6,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
-import com.raed.rasmview.renderer.RasmOnScreenRendererFactory
+import com.raed.rasmview.renderer.RasmRendererFactory
 import com.raed.rasmview.renderer.Renderer
 import com.raed.rasmview.state.RasmState
 import com.raed.rasmview.touch.handler.RasmViewEventHandlerFactory
@@ -23,14 +22,7 @@ class RasmView(
 
     constructor(context: Context, attrs: AttributeSet? = null): this(context, attrs, 0)
 
-    var rasmContext = RasmContext()
-        set(value) {
-            Toast.makeText(context, "RasmContext", Toast.LENGTH_SHORT).show()
-            field.state.removeOnStateChangedListener(::onRasmStateChanged)
-            field = value
-            field.state.addOnStateChangedListener(::onRasmStateChanged)
-            updateRenderer()
-        }
+    val rasmContext = RasmContext()
 
     init {
         rasmContext.state.addOnStateChangedListener(::onRasmStateChanged)
@@ -38,15 +30,15 @@ class RasmView(
 
     private val eventHandlerFactory = RasmViewEventHandlerFactory()
     private var touchHandler: MotionEventHandler? = null
-    private var rendererFactory = RasmOnScreenRendererFactory()
+    private var rendererFactory = RasmRendererFactory()
     private var render: Renderer? = null
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        if (rasmContext.isInitialized || w == 0 || h == 0) {
+        if (rasmContext.hasRasm || w == 0 || h == 0) {
             return
         }
-        rasmContext.init(w, h)
+        rasmContext.setRasm(w, h)
         updateRenderer()
         resetTransformation()
     }

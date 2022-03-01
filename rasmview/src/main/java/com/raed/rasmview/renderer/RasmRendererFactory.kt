@@ -3,7 +3,7 @@ package com.raed.rasmview.renderer
 import android.graphics.Rect
 import com.raed.rasmview.RasmContext
 
-internal class RasmOnScreenRendererFactory {
+internal class RasmRendererFactory {
 
     fun createOnscreenRenderer(rasmContext: RasmContext): Renderer {
         return if (rasmContext.isBrushToolActive){
