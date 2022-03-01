@@ -1,10 +1,6 @@
 # RasmView
 RasmView is an Android drawing library; it provides a view that allows users to draw on top of a bitmap.
 
-WARNING 1: The library is new and needs testing. If you found a bug, please open an issue.
-
-WARNING 2: Some breaking changes might be introduced in the coming days.
-
 ## Demo
 [https://www.youtube.com/watch?v=8qYhwjleT_8](https://www.youtube.com/watch?v=8qYhwjleT_8)
 
@@ -22,7 +18,7 @@ WARNING 2: Some breaking changes might be introduced in the coming days.
 #### Gradle:
 ```gradle
 dependencies {
-  implementation 'com.raedapps:rasmview:1.0.1-beta'
+  implementation 'com.raedapps:rasmview:1.2.0'
 }
 ```
 #### Maven:
@@ -30,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.raedapps</groupId>
   <artifactId>rasmview</artifactId>
-  <version>1.0.1-beta</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 ## Usage Guide
@@ -43,13 +39,13 @@ dependencies {
   />
 ```
 #### RasmContext
-RasmContext allows you to control the brush configuration, undo/redo, reset transformation, and more. You can access an already initialized rasm context from your rasmView:
+`RasmContext` allows you to control the brush configuration, undo/redo, reset transformation, and more. `RasmContext` can be accessed from `RasmView`:
 ```kotlin
 val rasmView = findViewById<RasmView>(R.id.rasmView)
 val rasmContext = rasmView.rasmContext
 ```
 #### Changing the brush
-You can use the BrushesRepository to get an already defined brush.
+You can use the `BrushesRepository` to get an already defined brush.
 ```kotlin
 val brushesRepository = BrushesRepository(resources)
 rasmContext.brushConfig = brushesRepository.get(Brush.Marker)
@@ -68,9 +64,12 @@ enum class Brush {
 ```
 
 #### Brush color
+Here is how to change the brush color:
 ```kotlin
 rasmContext.brushColor = Color.RED
+rasmContext.brushColor = 0xff2187bb.toInt() //ARGB
 ```
+The alpha channel value is ignored, you can control alpha by setting `brushConfig.flow`.
 #### Brush size and other configurations
 ```kotlin
 val brushConfig = rasmContext.brushConfig
@@ -89,14 +88,13 @@ rasmContext.brushConfig = customBrushConfig
 ```
 #### Drawing on a bitmap (your own image).
 ```kotlin
-val imageBitmap = ...
-val rasmContext = RasmContext()
-rasmContext.init(imageBitmap)
-rasmView.rasmContext = rasmContext
+val imageBitmap = ... //load your bitmap whether from a URI or resources
+rasmContext.setRasm(imageBitmap)
+rasmView.resetTransformation() 
 ```
 #### Getting the drawing
 ```kotlin
-val drawingBitmap = rasmView.rasmContext.rasmBitmap
+val drawingBitmap = rasmContext.exportRasm()
 ```
 #### Background color
 ```kotlin
@@ -105,6 +103,11 @@ rasmContext.setBackgroundColor(Color.BLACK)
 #### Undo/redo
 ```kotlin
 val rasmState = rasmContext.state
+rasmState.undo()
+rasmState.redo()
+```
+But you do not want to keep your buttons enabled when an undo/redo is not possible, you can listen to state updates:
+```kotlin
 undoButton.setOnClickListener {
     rasmState.undo()
 }
@@ -130,6 +133,8 @@ rasmContext.rotationEnabled = true
 ```kotlin
 rasmView.resetTransformation()
 ```
+
+*If you found a bug, please open an issue.*
 
 ## License
 ```
