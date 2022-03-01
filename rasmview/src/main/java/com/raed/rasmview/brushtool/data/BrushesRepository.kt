@@ -24,54 +24,57 @@ class BrushesRepository(
     }
 
     private fun createPencilBrushConfig(): BrushConfig {
-        return BrushConfig(
-            createBrushStamp(R.drawable.stamp_pencil),
-            0.1f,
-            0.15f,
-            rotationRandomness = 1f,
-        )
+        return BrushConfig().apply {
+            stamp = createBrushStamp(R.drawable.stamp_pencil)
+            size = 0.1f
+            spacing = 0.15f
+            rotationRandomness = 1f
+        }
     }
 
     private fun createPenBrushConfig() = BrushConfig()
 
     private fun createCalligraphyBrushConfig(): BrushConfig {
-        return BrushConfig(
-            OvalStamp,
-            1f,
-            0.0f,
-            rotation = 45,
-        )
+        return BrushConfig().apply {
+            stamp = OvalStamp
+            size = 0.2f
+            spacing = 0.0f
+            rotation = 45
+        }
     }
 
     private fun createAirBrushBrushConfig(): BrushConfig {
-        return BrushConfig(
-            createBrushStamp(R.drawable.stamp_airbrush),
-            1f,
-            0.1f,
-        )
+        return BrushConfig().apply {
+            stamp = createBrushStamp(R.drawable.stamp_airbrush)
+            size = 0.2f
+            spacing = 0.1f
+        }
     }
 
     private fun createMarkerBrushConfig(): BrushConfig {
-        return BrushConfig(
-            createBrushStamp(R.drawable.stamp_marker),
-            1f,
-            0.15f,
-            flow = 0.2f,
-        )
+        return BrushConfig().apply {
+            stamp = createBrushStamp(R.drawable.stamp_marker)
+            size = 0.4f
+            spacing = 0.15f
+            flow = 0.2f
+        }
     }
 
     private fun createHardEraserBrushConfig(): BrushConfig {
-        return BrushConfig(isEraser = true)
+        return BrushConfig().apply {
+            size = 0.1f
+            isEraser = true
+        }
     }
 
     private fun createSoftEraserBrushConfig(): BrushConfig {
-        return BrushConfig(
-            createBrushStamp(R.drawable.stamp_airbrush),
-            1f,
-            0.15f,
-            flow = 0.25f,
+        return BrushConfig().apply {
+            stamp = createBrushStamp(R.drawable.stamp_airbrush)
+            size = 0.2f
+            spacing = 0.15f
+            flow = 0.25f
             isEraser = true
-        )
+        }
     }
 
     private fun createBrushStamp(id: Int) = BitmapStamp(BitmapFactory.decodeResource(resources, id))
