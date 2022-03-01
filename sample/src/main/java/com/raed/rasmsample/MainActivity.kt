@@ -1,6 +1,5 @@
 package com.raed.rasmsample
 
-import android.graphics.BitmapFactory
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.google.android.material.switchmaterial.SwitchMaterial
-import com.raed.rasmview.RasmContext
 import com.raed.rasmview.RasmView
 import com.raed.rasmview.brushtool.data.Brush
 import com.raed.rasmview.brushtool.data.BrushesRepository
@@ -119,10 +117,6 @@ class MainActivity : AppCompatActivity() {
             updateUI()
         }
         updateUI()
-    }
-
-    override fun onBackPressed() {
-        rasmContext.setRasm(BitmapFactory.decodeResource(resources, R.drawable.image))
     }
 
     private fun getContentViewResId(): Int {

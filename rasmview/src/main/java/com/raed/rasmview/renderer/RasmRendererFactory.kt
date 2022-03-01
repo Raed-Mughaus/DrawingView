@@ -6,7 +6,7 @@ import com.raed.rasmview.RasmContext
 internal class RasmRendererFactory {
 
     fun createOnscreenRenderer(rasmContext: RasmContext): Renderer {
-        return if (rasmContext.isBrushToolActive){
+        return if (rasmContext.brushToolStatus.active){
             createBrushToolResultRenderer(rasmContext)
         } else {
             createLayerRenderer(rasmContext)

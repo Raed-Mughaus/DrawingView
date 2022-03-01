@@ -64,7 +64,7 @@ internal class BrushToolEventHandler(
     }
 
     private fun startDrawing(event: TouchEvent) {
-        rasmContext.isBrushToolActive = true
+        rasmContext.brushToolStatus.active = true
         rasmContext.brushToolBitmaps.resultBitmap.eraseColor(0)
         rasmContext.brushToolBitmaps.strokeBitmap.eraseColor(0)
         if (rasmContext.brushConfig.isEraser) {
@@ -79,13 +79,13 @@ internal class BrushToolEventHandler(
 
     private fun endDrawing(event: TouchEvent) {
         brushTool.endDrawing(event)
-        rasmContext.isBrushToolActive = false
+        rasmContext.brushToolStatus.active = false
         updateRasmState()
     }
 
     private fun cancelDrawing() {
         brushTool.cancel()
-        rasmContext.isBrushToolActive = false
+        rasmContext.brushToolStatus.active = false
         if (System.currentTimeMillis() - firstEventTime > 500) {
             updateRasmState()
         }

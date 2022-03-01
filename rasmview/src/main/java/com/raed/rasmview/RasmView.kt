@@ -26,6 +26,9 @@ class RasmView(
 
     init {
         rasmContext.state.addOnStateChangedListener(::onRasmStateChanged)
+        rasmContext.brushToolStatus.addOnChangeListener {
+            updateRenderer()
+        }
     }
 
     private val eventHandlerFactory = RasmViewEventHandlerFactory()
@@ -54,7 +57,6 @@ class RasmView(
             MotionEvent.ACTION_DOWN -> {
                 touchHandler = eventHandlerFactory.create(rasmContext)
                 touchHandler!!.handleFirstTouch(event)
-                updateRenderer()
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 if (event.actionMasked == MotionEvent.ACTION_UP) {
@@ -63,7 +65,6 @@ class RasmView(
                     touchHandler!!.cancel()
                 }
                 touchHandler = null
-                updateRenderer()
             }
             else -> {
                 touchHandler!!.handleTouch(event)
