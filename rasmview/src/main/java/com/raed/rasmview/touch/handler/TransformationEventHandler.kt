@@ -3,9 +3,9 @@ package com.raed.rasmview.touch.handler
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.view.MotionEvent
-import com.raed.rasmview.touch.gesture.rotation.RotationGestureDetector
-import com.raed.rasmview.touch.gesture.scale.ScaleGestureDetector
-import com.raed.rasmview.touch.gesture.translation.TwoFingersTranslationDetector
+import com.raed.rasmview.touch.gesture.RotationGestureDetector
+import com.raed.rasmview.touch.gesture.ScaleGestureDetector
+import com.raed.rasmview.touch.gesture.TwoFingersTranslationDetector
 
 class TransformationEventHandler(
     private val transformationMatrix: Matrix,
@@ -20,14 +20,9 @@ class TransformationEventHandler(
         }
     }
 
-    private val scaleGestureDetector = ScaleGestureDetector(object :
-        ScaleGestureDetector.SimpleOnScaleGestureListener() {
-        override fun onScale(detector: ScaleGestureDetector?): Boolean {
-            val scaleFactor = detector!!.scaleFactor
-            transformationMatrix.postScale(scaleFactor, scaleFactor, fingersCenter.x, fingersCenter.y)
-            return true
-        }
-    })
+    private val scaleGestureDetector = ScaleGestureDetector { scale ->
+        transformationMatrix.postScale(scale, scale, fingersCenter.x, fingersCenter.y)
+    }
 
     private val translationDetector = TwoFingersTranslationDetector { xTranslation, yTranslation ->
         transformationMatrix.postTranslate(xTranslation, yTranslation)
