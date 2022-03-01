@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import com.raed.rasmview.renderer.RasmRendererFactory
+import com.raed.rasmview.renderer.RasmOnScreenRendererFactory
 import com.raed.rasmview.renderer.Renderer
 import com.raed.rasmview.state.RasmState
 import com.raed.rasmview.touch.handler.RasmViewEventHandlerFactory
@@ -38,7 +38,7 @@ class RasmView(
 
     private val eventHandlerFactory = RasmViewEventHandlerFactory()
     private var touchHandler: MotionEventHandler? = null
-    private var rendererFactory = RasmRendererFactory()
+    private var rendererFactory = RasmOnScreenRendererFactory()
     private var render: Renderer? = null
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -87,12 +87,12 @@ class RasmView(
     }
 
     private fun updateRenderer() {
-        render = rendererFactory.create(rasmContext)
+        render = rendererFactory.createOnscreenRenderer(rasmContext)
         invalidate()
     }
 
     private fun onRasmStateChanged(rasmState: RasmState) {
-        render = rendererFactory.create(rasmContext)
+        render = rendererFactory.createOnscreenRenderer(rasmContext)
         invalidate()
     }
 

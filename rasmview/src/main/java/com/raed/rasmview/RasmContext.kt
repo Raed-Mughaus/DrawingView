@@ -1,14 +1,12 @@
 package com.raed.rasmview
 
-import android.graphics.Bitmap
+import android.graphics.*
 import android.graphics.Bitmap.Config.ARGB_8888
-import android.graphics.Matrix
-import android.graphics.Rect
-import android.graphics.RectF
 import com.raed.rasmview.actions.ChangeBackgroundAction
 import com.raed.rasmview.actions.ClearAction
 import com.raed.rasmview.brushtool.BrushToolBitmaps
 import com.raed.rasmview.brushtool.model.BrushConfig
+import com.raed.rasmview.renderer.RasmOnScreenRendererFactory
 import com.raed.rasmview.state.RasmState
 
 
@@ -39,6 +37,13 @@ class RasmContext {
 
     fun init(drawing: Bitmap) {
         nullableBrushToolBitmaps = BrushToolBitmaps.createFromDrawing(drawing)
+    }
+
+    fun exportRasm(): Bitmap {
+        val rasm = Bitmap.createBitmap(rasmWidth, rasmHeight, ARGB_8888)
+        val rasmRenderer = RasmOnScreenRendererFactory().createOffscreenRenderer(this)
+        rasmRenderer.render(Canvas(rasm))
+        return rasm
     }
 
     fun clear() {
