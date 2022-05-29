@@ -134,7 +134,6 @@ rasmContext.rotationEnabled = true
 rasmView.resetTransformation()
 ```
 
-*If you found a bug, please open an issue.*
 
 ## License
 ```
