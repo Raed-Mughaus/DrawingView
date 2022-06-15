@@ -86,7 +86,7 @@ customBrushConfig.size = 0.25f
 customBrushConfig.spacing = 0.1f
 rasmContext.brushConfig = customBrushConfig
 ```
-#### Drawing on a bitmap (your own image).
+#### Drawing on a bitmap (your own image)
 ```kotlin
 val imageBitmap = ... //load your bitmap whether from a URI or resources
 rasmContext.setRasm(imageBitmap)
@@ -134,7 +134,6 @@ rasmContext.rotationEnabled = true
 rasmView.resetTransformation()
 ```
 
-*If you found a bug, please open an issue.*
 
 ## License
 ```
