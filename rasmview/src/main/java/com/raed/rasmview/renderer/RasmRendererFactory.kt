@@ -5,7 +5,10 @@ import com.raed.rasmview.RasmContext
 
 internal class RasmRendererFactory {
 
-    fun createOnscreenRenderer(rasmContext: RasmContext): Renderer {
+    fun createOnscreenRenderer(rasmContext: RasmContext): Renderer? {
+        if (!rasmContext.hasRasm) {
+            return null
+        }
         return if (rasmContext.brushToolStatus.active){
             createBrushToolResultRenderer(rasmContext)
         } else {

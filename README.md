@@ -18,7 +18,7 @@ RasmView is an Android drawing library; it provides a view that allows users to 
 #### Gradle:
 ```gradle
 dependencies {
-  implementation 'com.raedapps:rasmview:1.2.0'
+  implementation 'com.raedapps:rasmview:1.2.1'
 }
 ```
 #### Maven:
@@ -26,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.raedapps</groupId>
   <artifactId>rasmview</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1</version>
 </dependency>
 ```
 ## Usage Guide

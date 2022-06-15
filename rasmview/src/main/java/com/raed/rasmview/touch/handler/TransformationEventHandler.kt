@@ -46,6 +46,7 @@ internal class TransformationEventHandler(
         rotationGestureDetector.onTouchEvent(event)
         scaleGestureDetector.onTouchEvent(event)
         translationDetector.onTouchEvent(event)
+        //TODO: if the drawing is outside the view, get it inside
     }
 
     override fun handleLastTouch(event: MotionEvent) {
@@ -56,6 +57,7 @@ internal class TransformationEventHandler(
         rotationGestureDetector.onTouchEvent(event)
         scaleGestureDetector.onTouchEvent(event)
         translationDetector.onTouchEvent(event)
+        //TODO: if the drawing is outside the view, get it inside
     }
 
     override fun cancel() {}
