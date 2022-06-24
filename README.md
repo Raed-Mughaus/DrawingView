@@ -92,7 +92,7 @@ val imageBitmap = ... //load your bitmap whether from a URI or resources
 rasmContext.setRasm(imageBitmap)
 rasmView.resetTransformation() 
 ```
-#### Getting the drawing
+#### Exporting the drawing
 ```kotlin
 val drawingBitmap = rasmContext.exportRasm()
 ```
