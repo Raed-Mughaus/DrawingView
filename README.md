@@ -106,7 +106,7 @@ val rasmState = rasmContext.state
 rasmState.undo()
 rasmState.redo()
 ```
-But you do not want to keep your buttons enabled when an undo/redo is not possible, you can listen to state updates:
+But you do not want to keep your buttons enabled when undo/redo is not possible, you can listen to state updates:
 ```kotlin
 undoButton.setOnClickListener {
     rasmState.undo()
